@@ -18,12 +18,12 @@ work in progress...
 Requires ES6 (io.js). Example web server using eshttp:
 
 ```js
-var eshttp = require('eshttp');
-var HTTPServer = eshttp.HTTPServer;
-var HTTPResponse = eshttp.HTTPResponse;
+let eshttp = require('eshttp');
+let HTTPServer = eshttp.HTTPServer;
+let HTTPResponse = eshttp.HTTPResponse;
 
-var server = new HTTPServer();
-var response = new HTTPResponse(200, { 'x-header': 'value' }, 'hello');
+let server = new HTTPServer();
+let response = new HTTPResponse(200, { 'x-header': 'value' }, 'hello');
 
 server.onrequest = function(request) {
   request.respondWith(response);
