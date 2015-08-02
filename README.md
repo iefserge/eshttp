@@ -1,5 +1,7 @@
 ## eshttp
 
+[![Build Status](https://travis-ci.org/iefserge/eshttp.svg?branch=master)](https://travis-ci.org/iefserge/eshttp)
+
 Modern ES6-style pure JavaScript HTTP library.
 
 Design goals:
