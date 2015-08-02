@@ -2,13 +2,13 @@
 
 [![Build Status](https://travis-ci.org/iefserge/eshttp.svg?branch=master)](https://travis-ci.org/iefserge/eshttp)
 
-Modern ES6-style pure JavaScript HTTP library.
+Portable pure JavaScript ES6 HTTP library.
 
 Design goals:
 
 - pure JavaScript (ES6)
 - high-performance and low-level, no stream abstractions
-- multiple backends support (Node/other platforms)
+- portable, multiple backends support (Node/other platforms)
 - fetch API frontend support
 
 work in progress...
