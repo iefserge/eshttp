@@ -13,7 +13,7 @@ work in progress...
 
 ## USAGE
 
-Example web server using eshttp:
+Requires ES6 (io.js). Example web server using eshttp:
 
 ```js
 var eshttp = require('eshttp');
