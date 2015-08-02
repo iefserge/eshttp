@@ -1,7 +1,7 @@
 'use strict';
 if (process.env.NODE_ENV === 'test') {
-  require('./backend').setBackend(require('./backend-test'));
+  require('./lib/backend').setBackend(require('./backend/backend-test'));
 } else {
-  require('./backend').setBackend(require('./backend-node'));
+  require('./lib/backend').setBackend(require('./backend/backend-node'));
 }
-module.exports = require('./eshttp');
+module.exports = require('./lib/eshttp');

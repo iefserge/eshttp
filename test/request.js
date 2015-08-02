@@ -1,6 +1,6 @@
 'use strict';
 var test = require('tape');
-var HTTPRequest = require('../http-request');
+var HTTPRequest = require('../lib/http-request');
 var CRLF = '\r\n';
 
 function U8(str) {

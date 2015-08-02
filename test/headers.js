@@ -1,6 +1,6 @@
 'use strict';
 var test = require('tape');
-var Headers = require('../headers');
+var Headers = require('../lib/headers');
 
 test('construct basic headers object', function(t) {
   var h = new Headers({

@@ -1,3 +1,3 @@
 'use strict';
-require('./backend').setBackend(require('./backend-runtime'));
+require('./lib/backend').setBackend(require('./backend/backend-runtime'));
 module.exports = require('./eshttp');
