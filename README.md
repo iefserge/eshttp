@@ -18,6 +18,7 @@ work in progress...
 Requires ES6 (io.js). Example web server using eshttp:
 
 ```js
+'use strict';
 let eshttp = require('eshttp');
 let HTTPServer = eshttp.HTTPServer;
 let HTTPResponse = eshttp.HTTPResponse;
