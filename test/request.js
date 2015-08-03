@@ -35,6 +35,38 @@ test('basic http request', function(t) {
   t.end();
 });
 
+test('http request 1 byte buffer chunks', function(t) {
+  var request = new HTTPRequest();
+
+  var data = [
+    'GET / HTTP/1.1',
+    'Connection: close',
+    'Host: localhost:8080',
+    'Accept: text/html, text/plain',
+    'User-Agent: test',
+    CRLF
+  ].join(CRLF);
+
+  var u8 = U8(data);
+  for (var i = 0; i < u8.length; ++i) {
+    request._chunk(u8.subarray(i, i + 1));
+    if (i === u8.length - 1) {
+      t.ok(request.isComplete())
+    } else {
+      t.ok(!request.isComplete())
+    }
+  }
+
+  t.equal(request.method, 'GET');
+  t.equal(request.url, '/');
+  t.equal(request.httpVersion, '1.1');
+  t.equal(request.headers.get('connection'), 'close');
+  t.equal(request.headers.get('accept'), 'text/html, text/plain');
+  t.equal(request.headers.get('user-agent'), 'test');
+  t.ok(request.isComplete())
+  t.end();
+});
+
 function testMethod(method) {
   test('method ' + method, function(t) {
     var request = new HTTPRequest();
