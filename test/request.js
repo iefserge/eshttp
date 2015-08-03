@@ -30,7 +30,7 @@ test('basic http request', function(t) {
   t.equal(request.headers.get('connection'), 'close');
   t.equal(request.headers.get('accept'), 'text/html, text/plain');
   t.equal(request.headers.get('user-agent'), 'test');
-  t.ok(request.isComplete())
+  t.ok(request.isComplete());
   console.log(request);
   t.end();
 });
@@ -51,9 +51,9 @@ test('http request 1 byte buffer chunks', function(t) {
   for (var i = 0; i < u8.length; ++i) {
     request._chunk(u8.subarray(i, i + 1));
     if (i === u8.length - 1) {
-      t.ok(request.isComplete())
+      t.ok(request.isComplete());
     } else {
-      t.ok(!request.isComplete())
+      t.ok(!request.isComplete());
     }
   }
 
@@ -63,7 +63,7 @@ test('http request 1 byte buffer chunks', function(t) {
   t.equal(request.headers.get('connection'), 'close');
   t.equal(request.headers.get('accept'), 'text/html, text/plain');
   t.equal(request.headers.get('user-agent'), 'test');
-  t.ok(request.isComplete())
+  t.ok(request.isComplete());
   t.end();
 });
 
