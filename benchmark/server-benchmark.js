@@ -18,7 +18,7 @@ function U8(str) {
 var eshttp = require('../index-node');
 var HTTPServer = eshttp.HTTPServer;
 var HTTPResponse = eshttp.HTTPResponse;
-var backend = require('../backend-test');
+var backend = require('../backend/backend-test');
 
 var server = new HTTPServer();
 var response = new HTTPResponse(200, { 'x-header': 'value' }, 'hello');
