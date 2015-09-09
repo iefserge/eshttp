@@ -1,6 +1,8 @@
 'use strict';
 var net = require('net');
 
+// Server handle
+
 exports.createServerHandle = function(httpServer) {
   return net.createServer(function(socket) {
     socket.on('data', function(nodebuf) {
@@ -9,6 +11,10 @@ exports.createServerHandle = function(httpServer) {
 
     socket.on('end', function() {
       httpServer._endHandler(socket);
+    });
+
+    socket.on('close', function() {
+      httpServer._closeHandler(socket);
     });
 
     httpServer._connectionHandler(socket);
@@ -25,4 +31,43 @@ exports.unlisten = function(handle) {
 
 exports.sendAndClose = function(socket, nodebuf) {
   socket.end(nodebuf);
+};
+
+// Client handle
+
+exports.createClientHandle = function(httpClient) {
+  var socket = new net.Socket({
+    allowHalfOpen: true
+  });
+
+  socket.on('connect', function() {
+    httpClient._openHandler();
+  });
+
+  socket.on('data', function(nodebuf) {
+    httpClient._dataHandler(nodebuf);
+  });
+
+  socket.on('end', function() {
+    socket.end();
+    httpClient._endHandler();
+  });
+
+  socket.on('close', function() {
+    httpClient._closeHandler();
+  });
+
+  return socket;
+};
+
+exports.closeClientHandle = function(socket) {
+  socket.end();
+};
+
+exports.connect = function(handle, ip, port) {
+  handle.connect(port, ip);
+};
+
+exports.send = function(socket, nodebuf) {
+  socket.write(nodebuf);
 };

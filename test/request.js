@@ -27,7 +27,6 @@ test('basic http request', function(t) {
   t.equal(request.method, 'GET');
   t.equal(request.url, '/');
   t.equal(request.httpVersion, '1.1');
-  t.equal(request.headers.get('connection'), 'close');
   t.equal(request.headers.get('accept'), 'text/html, text/plain');
   t.equal(request.headers.get('user-agent'), 'test');
   t.ok(request.isComplete());
@@ -60,7 +59,6 @@ test('http request 1 byte buffer chunks', function(t) {
   t.equal(request.method, 'GET');
   t.equal(request.url, '/');
   t.equal(request.httpVersion, '1.1');
-  t.equal(request.headers.get('connection'), 'close');
   t.equal(request.headers.get('accept'), 'text/html, text/plain');
   t.equal(request.headers.get('user-agent'), 'test');
   t.ok(request.isComplete());
@@ -151,7 +149,6 @@ test('test headers', function(t) {
   t.equal(request.method, 'GET', 'method is valid');
   t.equal(request.url, '/', 'url is valid');
   t.equal(request.httpVersion, '1.1', 'http version is valid');
-  t.equal(request.headers.get('connection'), 'keep-alive');
   t.equal(request.headers.get('x-header'), 'ok');
   t.equal(request.headers.get('other-header'), 'header-value');
   t.ok(request.isComplete(), 'request is complete');
