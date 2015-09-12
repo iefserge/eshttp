@@ -15,7 +15,7 @@ work in progress...
 
 ## USAGE
 
-Requires ES6 (io.js). Example web server using eshttp:
+Requires ES6 (Node.js 4.0). Example web server using eshttp:
 
 ```js
 'use strict';
