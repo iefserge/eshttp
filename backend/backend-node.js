@@ -1,6 +1,10 @@
 'use strict';
 var net = require('net');
 
+exports.stringToBuffer = function(str) {
+  return new Buffer(str);
+};
+
 // Server handle
 
 exports.createServerHandle = function(httpServer) {

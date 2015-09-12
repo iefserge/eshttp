@@ -15,7 +15,7 @@ for (var i = 0; i < 10; ++i) {
     };
 
     response.onend = function() {
-      console.log('ended')
+      console.log('ended');
     };
   });
 }
