@@ -37,6 +37,10 @@ exports.sendAndClose = function(socket, nodebuf) {
   socket.end(nodebuf);
 };
 
+exports.close = function(socket) {
+  socket.end();
+};
+
 // Client handle
 
 exports.createClientHandle = function(httpClient) {
