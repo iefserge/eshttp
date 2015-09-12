@@ -16,12 +16,12 @@ function U8(str) {
 }
 
 var eshttp = require('../index-node');
-var HTTPServer = eshttp.HTTPServer;
-var HTTPResponse = eshttp.HTTPResponse;
+var HttpServer = eshttp.HttpServer;
+var HttpResponse = eshttp.HttpResponse;
 var backend = require('../backend/backend-test');
 
-var server = new HTTPServer();
-var response = new HTTPResponse(200, { 'x-header': 'value' }, 'hello');
+var server = new HttpServer();
+var response = new HttpResponse(200, { 'x-header': 'value' }, 'hello');
 
 server.onrequest = function(request) {
   request.respondWith(response);
