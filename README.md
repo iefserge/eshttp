@@ -19,11 +19,11 @@ Requires ES6 (Node.js 4.0). Example web server using eshttp:
 
 ```js
 'use strict';
-let eshttp = require('eshttp');
-let server = new eshttp.HttpServer();
-let response = new eshttp.HttpResponse(200, { 'x-header': 'value' }, 'hello');
+const eshttp = require('eshttp');
+const server = new eshttp.HttpServer();
+const response = new eshttp.HttpResponse(200, { 'x-header': 'value' }, 'hello');
 
-server.onrequest = function(request) {
+server.onrequest = (request) => {
   request.respondWith(response);
 };
 

@@ -3,7 +3,7 @@ var http = require('http');
 
 var headers = { 'x-header': 'value' };
 
-var server = http.createServer(function(req, res) {
+var server = http.createServer((req, res) => {
   res.writeHead(200, headers);
   res.end('hello');
 });
