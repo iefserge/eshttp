@@ -33,9 +33,8 @@ server.listen(8080);
 ## TODO
 
 - handle invalid http requests
-- keep alive support
+- parser improvements
 - chunked responses
-- http client and http response parser
 - fetch api
 
 ##LICENSE
