@@ -3,7 +3,7 @@ var eshttp = require('../index-node');
 var server = new eshttp.HttpServer();
 var response = new eshttp.HttpResponse(200, { 'x-header': 'value' }, 'hello');
 
-server.onrequest = (request) => {
+server.onrequest = request => {
   request.respondWith(response);
 };
 

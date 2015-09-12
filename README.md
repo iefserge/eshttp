@@ -23,7 +23,7 @@ const eshttp = require('eshttp');
 const server = new eshttp.HttpServer();
 const response = new eshttp.HttpResponse(200, { 'x-header': 'value' }, 'hello');
 
-server.onrequest = (request) => {
+server.onrequest = request => {
   request.respondWith(response);
 };
 
