@@ -363,6 +363,37 @@ testCaseParser({
   }
 });
 
+testCaseParser({
+  name: 'http request chunked with trailers',
+  type: 'request',
+  input: [
+    'POST /write HTTP/1.1',
+    'Transfer-encoding: chunked',
+    'Server: test' + CRLF,
+    '5',
+    'hello',
+    '7',
+    ' world!',
+    '0',
+    'Trailer1: value1',
+    'Trailer2: value2',
+    CRLF
+  ],
+  checks: {
+    method: 'POST',
+    path: '/write',
+    versionMajor: 1,
+    versionMinor: 1,
+    chunked: true,
+    keepAlive: true,
+    status: 'complete',
+    body: 'hello world!',
+    headers: {
+      'server': 'test'
+    }
+  }
+});
+
 testCaseParser(function() {
   var common = {
     name: 'request parse errors',
