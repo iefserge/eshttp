@@ -1,5 +1,11 @@
 'use strict';
 
+var enc = new TextEncoder();
+
+exports.stringToBuffer = function(str) {
+  return enc.encode(str);
+};
+
 /* global runtime */
 var TCPServerSocket = runtime.net.TCPServerSocket;
 
@@ -31,4 +37,8 @@ exports.unlisten = function(handle) {
 exports.sendAndClose = function(socket, u8) {
   socket.send(u8);
   socket.close();
+};
+
+exports.send = function(socket, u8) {
+  socket.send(u8);
 };
