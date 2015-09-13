@@ -513,6 +513,35 @@ testCaseParser({
   }
 });
 
+testCaseParser({
+  name: 'http request chunked hex numbers',
+  type: 'request',
+  input: [
+    'POST /write HTTP/1.1',
+    'Transfer-encoding: chunked',
+    'Server: test' + CRLF,
+    'a',
+    'hellohello',
+    'f',
+    ' world! hello!!',
+    '0',
+    CRLF
+  ],
+  checks: {
+    method: 'POST',
+    path: '/write',
+    versionMajor: 1,
+    versionMinor: 1,
+    chunked: true,
+    keepAlive: true,
+    status: 'complete',
+    body: 'hellohello world! hello!!',
+    headers: {
+      'server': 'test'
+    }
+  }
+});
+
 // ***************************************************************
 // RESPONSES
 // **************************************************************
