@@ -1,6 +1,10 @@
 'use strict';
 var testServer = null;
 
+exports.stringToBuffer = function(str) {
+  return new Buffer(str);
+};
+
 exports.getServer = function() {
   return testServer;
 };

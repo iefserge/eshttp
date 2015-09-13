@@ -21,6 +21,9 @@ exports.createServerHandle = function(httpServer) {
       httpServer._closeHandler(socket);
     });
 
+    socket.on('error', function() {
+    });
+
     httpServer._connectionHandler(socket);
   });
 };
