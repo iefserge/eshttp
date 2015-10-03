@@ -83,7 +83,7 @@ body | string | Request body string (optional)
 const request = new eshttp.HttpRequest('GET', '/', { 'User-Agent': 'eshttp' });
 ```
 
-### eshttp.HttpServer()
+### eshttp.HttpServer
 
 Represents HTTP server.
 
