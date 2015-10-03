@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/iefserge/eshttp.svg?branch=master)](https://travis-ci.org/iefserge/eshttp)
 
-Portable pure JavaScript ES6 HTTP library. Includes fast streaming parser for HTTP/1.0 and HTTP/1.1.
+Portable pure JavaScript ES6 HTTP library. Includes fast streaming regex-free parser for HTTP/1.0 and HTTP/1.1.
 
 - pure JavaScript (ES6/2015)
 - high-performance and low-level, no stream abstractions
