@@ -4,14 +4,9 @@
 
 Portable pure JavaScript ES6 HTTP library.
 
-Design goals:
-
-- pure JavaScript (ES6)
+- pure JavaScript (ES6/2015)
 - high-performance and low-level, no stream abstractions
-- portable, multiple backends support (Node/other platforms)
-- fetch API frontend support
-
-work in progress...
+- portable, multiple backends support (Node.js/other platforms)
 
 ## USAGE
 
@@ -19,7 +14,7 @@ work in progress...
 npm install eshttp
 ```
 
-Requires ES6 (Node.js 4.0). Example web server using eshttp:
+Requires ES6/2015 JS engine (Node.js 4.0). Example web server using eshttp:
 
 ```js
 'use strict';
