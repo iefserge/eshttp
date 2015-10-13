@@ -345,7 +345,7 @@ testCaseParser({
     'hello',
     '7',
     ' world!',
-    '0',
+    '0' + CRLF,
     CRLF
   ],
   checks: {
@@ -390,6 +390,48 @@ testCaseParser({
     body: 'hello world!',
     headers: {
       'server': 'test'
+    },
+    trailers: {
+      'trailer1': 'value1',
+      'trailer2': 'value2'
+    }
+  }
+});
+
+testCaseParser({
+  name: 'http request chunked with multiline trailers',
+  type: 'request',
+  input: [
+    'POST /write HTTP/1.1',
+    'Transfer-encoding: chunked',
+    'Server: test' + CRLF,
+    '5',
+    'hello',
+    '7',
+    ' world!',
+    '0',
+    'Trailer1:',
+    ' value1',
+    ' value2',
+    'Trailer2: value3',
+    ' value4',
+    CRLF
+  ],
+  checks: {
+    method: 'POST',
+    path: '/write',
+    versionMajor: 1,
+    versionMinor: 1,
+    chunked: true,
+    keepAlive: true,
+    status: 'complete',
+    body: 'hello world!',
+    headers: {
+      'server': 'test'
+    },
+    trailers: {
+      'trailer1': 'value1 value2',
+      'trailer2': 'value3 value4'
     }
   }
 });
@@ -479,6 +521,27 @@ testCaseParser(function() {
       'GET /hello HTTP/1.1',
       'Header: ' + 'a'.repeat(1024 * 20) // >16 KiB value
     ],
+    [
+      'POST /write HTTP/1.1',
+      'Transfer-encoding: chunked',
+      'Server: test' + CRLF,
+      '5',
+      'hello',
+      '7',
+      ' world!',
+      '0',
+      'Trailer: ' + 'a'.repeat(1024 * 2) // >1 KiB value
+    ],
+    [
+      'POST /write HTTP/1.1',
+      'Transfer-encoding: chunked',
+      'Server: test' + CRLF,
+      '5',
+      'hello',
+      '0',
+      'Trailer: value',
+      'Trailer2' + CRLF
+    ]
   ].map(function(input) {
     return Object.assign({ input }, common);
   });
