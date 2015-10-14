@@ -1,5 +1,6 @@
 'use strict';
 var test = require('tape');
+var concatBuffers = require('concat-buffers');
 var HttpParser = require('../lib/http-parser');
 var CRLF = '\r\n';
 
@@ -8,22 +9,6 @@ function U8(str) {
   for (var i = 0; i < str.length; ++i) {
     u8[i] = str.charCodeAt(i);
   }
-  return u8;
-}
-
-function mergeBuffers(arr) {
-  let len = 0;
-  for (let i = 0; i < arr.length; ++i) {
-    len += arr[i].byteLength;
-  }
-
-  let u8 = new Uint8Array(len);
-  let nextIndex = 0;
-  for (let i = 0; i < arr.length; ++i) {
-    u8.set(arr[i], nextIndex);
-    nextIndex += arr[i].byteLength;
-  }
-
   return u8;
 }
 
@@ -80,7 +65,17 @@ function runTestCase(currentTest) {
         }
       }
       if ('body' in checks) {
-        t.deepEqual(mergeBuffers(bodyChunks), U8(checks.body), prefix + ' body ok');
+        t.deepEqual(concatBuffers(bodyChunks), U8(checks.body), prefix + ' body ok');
+      }
+      if ('trailers' in checks) {
+        for (let key in checks.trailers) {
+          if (!checks.trailers.hasOwnProperty(key)) {
+            continue;
+          }
+
+          t.ok(parser.trailers.has(key), prefix + ' has trailer "' + key + '"');
+          t.equal(parser.trailers.get(key), checks.trailers[key], prefix + ' header value ok "' + key + '"');
+        }
       }
 
       var status = checks.status || 'complete';
@@ -97,22 +92,54 @@ function runTestCase(currentTest) {
     {
       let bodyChunks = [];
       let parser = getParser();
-      parser.onbodychunk = function(u8) {
-        bodyChunks.push(u8);
-      };
-      parser.chunk(U8(currentTest.input.join(CRLF)));
+      let offset = 0;
+      let u8 = U8(currentTest.input.join(CRLF));
+      while (offset < u8.length) {
+        parser.chunk(u8, offset);
+        if (parser.isError()) {
+          break;
+        }
+
+        if (parser.lastBodyChunk) {
+          bodyChunks.push(parser.lastBodyChunk);
+        }
+
+        if (offset < parser.lastParsedIndex + 1) {
+          offset = parser.lastParsedIndex + 1;
+          continue;
+        }
+
+        break;
+      }
+
       runChecks(parser, bodyChunks, 'single packet');
     }
+
 
     {
       let bodyChunks = [];
       let parser = getParser();
-      parser.onbodychunk = function(u8) {
-        bodyChunks.push(u8);
-      };
       let u8 = U8(currentTest.input.join(CRLF));
       for (let i = 0; i < u8.length; ++i) {
-        parser.chunk(u8.subarray(i, i + 1));
+        let subu8 = u8.subarray(i, i + 1);
+        let offset = 0;
+        while (offset < subu8.length) {
+          parser.chunk(subu8, offset);
+          if (parser.isError()) {
+            break;
+          }
+
+          if (parser.lastBodyChunk) {
+            bodyChunks.push(parser.lastBodyChunk);
+          }
+
+          if (offset < parser.lastParsedIndex + 1) {
+            offset = parser.lastParsedIndex + 1;
+            continue;
+          }
+
+          break;
+        }
       }
       runChecks(parser, bodyChunks, 'split into 1 byte packets');
     }
