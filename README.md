@@ -35,6 +35,43 @@ server.listen(8080);
 - chunked responses
 - fetch api
 
+## BENCHMARK
+
+```
+$ node -v
+v4.2.1
+```
+
+[Node.js builtin http module](https://github.com/iefserge/eshttp/blob/master/example/run-server-http.js):
+
+```
+$ wrk -t12 -c400 -d30s http://127.0.0.1:8080/
+Running 30s test @ http://127.0.0.1:8080/
+  12 threads and 400 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    21.12ms    2.32ms  98.16ms   88.23%
+    Req/Sec     1.25k   489.35     4.03k    83.52%
+  336337 requests in 30.09s, 38.81MB read
+  Socket errors: connect 155, read 181, write 0, timeout 0
+Requests/sec:  11177.42
+Transfer/sec:      1.29MB
+```
+
+[eshttp](https://github.com/iefserge/eshttp/blob/master/example/run-server-eshttp.js):
+
+```
+$ wrk -t12 -c400 -d30s http://127.0.0.1:8080/
+Running 30s test @ http://127.0.0.1:8080/
+  12 threads and 400 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    11.46ms    1.75ms  76.40ms   94.03%
+    Req/Sec     1.76k     1.36k    5.97k    62.83%
+  630789 requests in 30.10s, 72.79MB read
+  Socket errors: connect 155, read 130, write 21, timeout 0
+Requests/sec:  20959.47
+Transfer/sec:      2.42MB
+```
+
 ## API
 
 ```js
