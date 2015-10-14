@@ -1,6 +1,6 @@
 {
   "name": "eshttp",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "ES6-style pure JavaScript HTTP library",
   "main": "index-node.js",
   "browser": "index-runtime.js",
