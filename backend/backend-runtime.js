@@ -6,6 +6,10 @@ exports.stringToBuffer = function(str) {
   return enc.encode(str);
 };
 
+exports.stringToSocketData = function(str) {
+  return enc.encode(str);
+};
+
 /* global runtime */
 var TCPServerSocket = runtime.net.TCPServerSocket;
 

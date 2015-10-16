@@ -5,6 +5,10 @@ exports.stringToBuffer = function(str) {
   return new Buffer(str);
 };
 
+exports.stringToSocketData = function(str) {
+  return str;
+};
+
 exports.getServer = function() {
   return testServer;
 };
