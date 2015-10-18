@@ -4,8 +4,7 @@ var server = new eshttp.HttpServer();
 var HttpResponse = eshttp.HttpResponse;
 
 server.onrequest = request => {
-  var response = new HttpResponse(200, { 'x-header': 'value' }, 'hello');
-  request.respondWith(response);
+  request.respondWith(200, { 'x-header': 'value' }, 'hello');
 };
 
 server.listen(8000);
