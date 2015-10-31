@@ -43,6 +43,10 @@ exports.sendAndClose = function(socket, u8) {
   socket.close();
 };
 
+exports.close = function(socket) {
+  socket.close();
+};
+
 exports.send = function(socket, u8) {
   socket.send(u8);
 };
