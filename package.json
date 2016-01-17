@@ -3,7 +3,7 @@
   "version": "0.4.0",
   "description": "ES6-style pure JavaScript HTTP library",
   "main": "index-node.js",
-  "browser": "index-runtime.js",
+  "runtime": "index-runtime.js",
   "scripts": {
     "lint": "eslint .",
     "test": "tape test/index.js"
