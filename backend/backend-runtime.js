@@ -1,5 +1,8 @@
 'use strict';
 
+/* global runtime */
+var TCPServerSocket = runtime.net.TCPServerSocket;
+var TCPSocket = runtime.net.TCPSocket;
 var enc = new TextEncoder();
 
 exports.stringToBuffer = function(str) {
@@ -10,8 +13,6 @@ exports.stringToSocketData = function(str) {
   return enc.encode(str);
 };
 
-/* global runtime */
-var TCPServerSocket = runtime.net.TCPServerSocket;
 
 exports.createServerHandle = function(httpServer) {
   var socket = new TCPServerSocket();
@@ -50,3 +51,34 @@ exports.close = function(socket) {
 exports.send = function(socket, u8) {
   socket.send(u8);
 };
+
+exports.createClientHandle = function(httpClient) {
+  var socket = new TCPSocket();
+
+  socket.onopen = function() {
+    httpClient._openHandler();
+  }
+
+  socket.ondata = function(u8) {
+    httpClient._dataHandler(u8);
+  }
+
+  socket.onend = function() {
+    socket.close();
+    httpClient._endHandler();
+  }
+
+  socket.onclose = function() {
+    httpClient._closeHandler();
+  }
+
+  return socket;
+}
+
+exports.closeClientHandle = function(socket) {
+  socket.close();
+}
+
+exports.connect = function(handle, ip, port) {
+  handle.open(ip, port);
+}
