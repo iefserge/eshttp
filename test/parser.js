@@ -1,6 +1,6 @@
 'use strict';
-var testCaseParser = require('./test-case-parser');
-var CRLF = '\r\n';
+const testCaseParser = require('./test-case-parser');
+const CRLF = '\r\n';
 
 // ***************************************************************
 // REQUESTS
@@ -437,7 +437,7 @@ testCaseParser({
 });
 
 testCaseParser(function() {
-  var common = {
+  const common = {
     name: 'request parse errors',
     type: 'request',
     checks: {

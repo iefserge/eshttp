@@ -1,12 +1,12 @@
 'use strict';
-var eshttp = require('../index-node');
-var HttpClient = eshttp.HttpClient;
-var HttpRequest = eshttp.HttpRequest;
+const eshttp = require('../index-node');
+const HttpClient = eshttp.HttpClient;
+const HttpRequest = eshttp.HttpRequest;
 
-var request = new HttpRequest('GET', '/', { 'x-header': 'value' });
-var client = new HttpClient('127.0.0.1', 8080);
+const request = new HttpRequest('GET', '/', { 'x-header': 'value' });
+const client = new HttpClient('127.0.0.1', 8080);
 
-for (var i = 0; i < 10; ++i) {
+for (let i = 0; i < 10; ++i) {
   client.request(request, function(err, response) {
     console.log('response: ' + response.statusCode + ' ' + response.statusMessage);
 

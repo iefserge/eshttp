@@ -1,5 +1,5 @@
 'use strict';
-var testServer = null;
+const testServer = null;
 
 exports.stringToBuffer = function(str) {
   return new Buffer(str);
@@ -16,7 +16,7 @@ exports.getServer = function() {
 exports.createServerHandle = function(httpServer) {
   testServer = {
     addConnection: function(onsend, onclose) {
-      var conn = {
+      const conn = {
         data: function(u8) {
           httpServer._dataHandler(conn, u8);
         },

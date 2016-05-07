@@ -1,5 +1,5 @@
 'use strict';
-var net = require('net');
+const net = require('net');
 
 exports.stringToBuffer = function(str) {
   return new Buffer(str);
@@ -51,7 +51,7 @@ exports.close = function(socket) {
 // Client handle
 
 exports.createClientHandle = function(httpClient) {
-  var socket = new net.Socket({
+  const socket = new net.Socket({
     allowHalfOpen: true
   });
 

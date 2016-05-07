@@ -1,15 +1,15 @@
 'use strict';
-var test = require('tape');
-var HttpServer = require('../lib/http-server');
-var HttpResponse = require('../lib/http-response');
-var http = require('http');
-var net = require('net');
-var concatBuffers = require('concat-buffers');
-var CRLF = '\r\n';
+const test = require('tape');
+const HttpServer = require('../lib/http-server');
+const HttpResponse = require('../lib/http-response');
+const http = require('http');
+const net = require('net');
+const concatBuffers = require('concat-buffers');
+const CRLF = '\r\n';
 
 function U8(str) {
-  var u8 = new Uint8Array(str.length);
-  for (var i = 0; i < str.length; ++i) {
+  const u8 = new Uint8Array(str.length);
+  for (let i = 0; i < str.length; ++i) {
     u8[i] = str.charCodeAt(i);
   }
   return u8;
@@ -17,8 +17,8 @@ function U8(str) {
 
 test('http server get', function(t) {
   t.plan(9);
-  var response = new HttpResponse(200, {}, 'ok');
-  var server = new HttpServer();
+  const response = new HttpResponse(200, {}, 'ok');
+  const server = new HttpServer();
 
   server.onrequest = request => {
     request.respondWith(response);
@@ -71,23 +71,23 @@ test('http server get', function(t) {
 
 test('http server post request', function(t) {
   t.plan(6);
-  var response = new HttpResponse(200, {}, 'ok');
-  var server = new HttpServer();
+  const response = new HttpResponse(200, {}, 'ok');
+  const server = new HttpServer();
 
   server.onrequest = request => {
     console.log('request', request.path);
-    var chunks = [];
+    const chunks = [];
 
     request.ondata = chunk => {
       t.ok(true, 'request data');
       chunks.push(chunk);
-    }
+    };
 
     request.onend = () => {
       t.ok(true, 'request end');
 
-      var b = concatBuffers(chunks);
-      var body = String.fromCharCode.apply(null, b);
+      const b = concatBuffers(chunks);
+      const body = String.fromCharCode.apply(null, b);
       t.equal(body, JSON.stringify({ data: 'value' }));
 
       request.respondWith(response);
@@ -99,11 +99,11 @@ test('http server post request', function(t) {
   server.listen(7777);
 
   process.nextTick(function() {
-    var json = JSON.stringify({
+    const json = JSON.stringify({
       data: 'value'
     });
 
-    var req = http.request({
+    const req = http.request({
       hostname: '127.0.0.1',
       port: 7777,
       path: '/message',
@@ -130,8 +130,8 @@ test('http server post request', function(t) {
 
 test('http pipelining', function(t) {
   t.plan(8);
-  var response = new HttpResponse(200, {}, 'ok');
-  var server = new HttpServer();
+  const response = new HttpResponse(200, {}, 'ok');
+  const server = new HttpServer();
 
   server.onrequest = request => {
     request.respondWith(response);
@@ -142,14 +142,14 @@ test('http pipelining', function(t) {
   server.listen(7777);
 
   function testInput(input) {
-    var socket = net.createConnection(7777, '127.0.0.1', () => {
+    const socket = net.createConnection(7777, '127.0.0.1', () => {
       socket.write(Buffer(U8(input.join(CRLF))));
       socket.end();
     });
 
     socket.on('data', (buf) => {
-      var s = buf.toString();
-      var responsesCount = (s.match(/HTTP\/1.1 200 OK/g) || []).length;
+      const s = buf.toString();
+      const responsesCount = (s.match(/HTTP\/1.1 200 OK/g) || []).length;
       t.equal(responsesCount, 4);
     });
 

@@ -1,9 +1,9 @@
 'use strict';
-var test = require('tape');
-var Headers = require('../lib/headers');
+const test = require('tape');
+const Headers = require('../lib/headers');
 
 test('construct basic headers object', function(t) {
-  var h = new Headers({
+  const h = new Headers({
     'x-header-1': 'value1',
     'X-HEADER-2': 'value2'
   });
@@ -24,7 +24,7 @@ test('construct basic headers object', function(t) {
 });
 
 test('append header', function(t) {
-  var h = new Headers({
+  const h = new Headers({
     'x-header-1': 'value1',
     'X-HEADER-2': 'value2'
   });
@@ -36,7 +36,7 @@ test('append header', function(t) {
 });
 
 test('set new header', function(t) {
-  var h = new Headers({
+  const h = new Headers({
     'x-header-1': 'value1',
     'X-HEADER-2': 'value2'
   });
@@ -48,7 +48,7 @@ test('set new header', function(t) {
 });
 
 test('set existing header', function(t) {
-  var h = new Headers({
+  const h = new Headers({
     'x-header-1': 'value1',
     'X-HEADER-2': 'value2'
   });
@@ -60,7 +60,7 @@ test('set existing header', function(t) {
 });
 
 test('delele existing header', function(t) {
-  var h = new Headers({
+  const h = new Headers({
     'x-header-1': 'value1',
     'X-HEADER-2': 'value2'
   });
@@ -74,7 +74,7 @@ test('delele existing header', function(t) {
 });
 
 test('delele non-existing header', function(t) {
-  var h = new Headers({
+  const h = new Headers({
     'x-header-1': 'value1',
     'X-HEADER-2': 'value2'
   });
@@ -88,13 +88,13 @@ test('delele non-existing header', function(t) {
 });
 
 test('headers iterator', function(t) {
-  var h = new Headers({
+  const h = new Headers({
     'x-header-1': 'value1',
     'X-HEADER-2': 'value2'
   });
 
-  var index = 0;
-  for (var header of h) {
+  let index = 0;
+  for (const header of h) {
     if (index++ === 0) {
       t.equal(header[0], 'x-header-1');
       t.equal(header[1], 'value1');
@@ -105,7 +105,7 @@ test('headers iterator', function(t) {
   }
 
   index = 0;
-  for (var headerName of h.keys()) {
+  for (const headerName of h.keys()) {
     if (index++ === 0) {
       t.equal(headerName, 'x-header-1');
     } else {
@@ -114,7 +114,7 @@ test('headers iterator', function(t) {
   }
 
   index = 0;
-  for (var headerValue of h.values()) {
+  for (const headerValue of h.values()) {
     if (index++ === 0) {
       t.equal(headerValue, 'value1');
     } else {

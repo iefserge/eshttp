@@ -41,3 +41,4 @@ rules:
   consistent-return: 2
   strict: [2, "global"]
   wrap-iife: [2, "inside"]
+  no-var: 2

@@ -1,6 +1,6 @@
 'use strict';
-var eshttp = require('../index-node');
-var server = new eshttp.HttpServer();
+const eshttp = require('../index-node');
+const server = new eshttp.HttpServer();
 
 server.onrequest = request => {
   request.respondWith(200, { 'x-header': 'value' }, 'hello');

@@ -1,12 +1,12 @@
 'use strict';
-var test = require('tape');
-var concatBuffers = require('concat-buffers');
-var HttpParser = require('../lib/http-parser');
-var CRLF = '\r\n';
+const test = require('tape');
+const concatBuffers = require('concat-buffers');
+const HttpParser = require('../lib/http-parser');
+const CRLF = '\r\n';
 
 function U8(str) {
-  var u8 = new Uint8Array(str.length);
-  for (var i = 0; i < str.length; ++i) {
+  const u8 = new Uint8Array(str.length);
+  for (let i = 0; i < str.length; ++i) {
     u8[i] = str.charCodeAt(i);
   }
   return u8;
@@ -22,7 +22,7 @@ function getResponseParser() {
 
 function runTestCase(currentTest) {
   test(currentTest.name, function(t) {
-    var checks = currentTest.checks;
+    const checks = currentTest.checks;
 
     function getParser() {
       return currentTest.type === 'request'
@@ -78,7 +78,7 @@ function runTestCase(currentTest) {
         }
       }
 
-      var status = checks.status || 'complete';
+      const status = checks.status || 'complete';
 
       if (status === 'complete') {
         t.ok(parser.isComplete(), prefix + ' input complete');

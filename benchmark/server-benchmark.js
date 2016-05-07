@@ -8,27 +8,27 @@ if (!global.performance) {
 }
 
 function U8(str) {
-  var u8 = new Uint8Array(str.length);
-  for (var i = 0; i < str.length; ++i) {
+  const u8 = new Uint8Array(str.length);
+  for (let i = 0; i < str.length; ++i) {
     u8[i] = str.charCodeAt(i);
   }
   return u8;
 }
 
-var eshttp = require('../index-node');
-var HttpServer = eshttp.HttpServer;
-var HttpResponse = eshttp.HttpResponse;
-var backend = require('../backend/backend-test');
+const eshttp = require('../index-node');
+const HttpServer = eshttp.HttpServer;
+const HttpResponse = eshttp.HttpResponse;
+const backend = require('../backend/backend-test');
 
-var server = new HttpServer();
-var response = new HttpResponse(200, { 'x-header': 'value' }, 'hello');
+const server = new HttpServer();
+const response = new HttpResponse(200, { 'x-header': 'value' }, 'hello');
 
 server.onrequest = function(request) {
   request.respondWith(response);
 };
 server.listen(8080);
 
-var tcpServer = backend.getServer();
+const tcpServer = backend.getServer();
 
 function onsend(u8) {
   if (u8[9] !== '2' || u8[10] !== '0' || u8[11] !== '0') {
@@ -37,7 +37,7 @@ function onsend(u8) {
 };
 function onclose() {};
 
-var data = U8([
+const data = U8([
   'GET / HTTP/1.1',
   'Connection: close',
   'Host: localhost:8080',
@@ -48,16 +48,16 @@ var data = U8([
 ].join('\r\n'));
 
 console.log('started...');
-var time = performance.now();
+const time = performance.now();
 
-var COUNT = 100000;
+const COUNT = 100000;
 
-for (var i = 0; i < COUNT; ++i) {
-  var conn = tcpServer.addConnection(onsend, onclose);
+for (let i = 0; i < COUNT; ++i) {
+  const conn = tcpServer.addConnection(onsend, onclose);
   conn.data(data);
 }
 
-var timeEnd = (performance.now() - time) | 0;
+const timeEnd = (performance.now() - time) | 0;
 console.log('done ' + COUNT + ' connections in ' + timeEnd + 'ms (' + (timeEnd / COUNT).toFixed(4) + 'ms per connection)');
 server.close();
 process.exit();
