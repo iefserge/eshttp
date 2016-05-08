@@ -31,7 +31,7 @@ server.listen(8080);
 var tcpServer = backend.getServer();
 
 function onsend(u8) {
-  if (u8[0] !== 72 || u8[1] !== 84 || u8[2] !== 84) {
+  if (u8[9] !== '2' || u8[10] !== '0' || u8[11] !== '0') {
     throw new Error('non 200 response');
   }
 };
