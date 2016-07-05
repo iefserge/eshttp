@@ -25,6 +25,10 @@ exports.createServerHandle = function(httpServer) {
       httpServer._endHandler(connSocket);
     };
 
+    connSocket.onclose = function() {
+      httpServer._closeHandler(connSocket);
+    };
+
     httpServer._connectionHandler(connSocket);
   };
 
