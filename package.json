@@ -18,6 +18,9 @@
     "url": "https://github.com/iefserge/eshttp/issues"
   },
   "homepage": "http://runtimejs.org",
+  "engines": {
+    "node": ">=4"
+  },
   "devDependencies": {
     "eslint": "^1.0.0",
     "performance-now": "^0.2.0",
