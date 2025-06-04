@@ -1,6 +1,6 @@
 {
   "name": "eshttp",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "ES6-style pure JavaScript HTTP library",
   "main": "index-node.js",
   "runtime": "index-runtime.js",
@@ -22,9 +22,9 @@
     "node": ">=4"
   },
   "devDependencies": {
-    "eslint": "^1.0.0",
-    "performance-now": "^0.2.0",
-    "tape": "^4.0.1"
+    "eslint": "^9.28.0",
+    "performance-now": "^2.1.0",
+    "tape": "^5.9.0"
   },
   "dependencies": {
     "concat-buffers": "^1.0.0"
